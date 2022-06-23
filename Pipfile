@@ -8,6 +8,8 @@ django = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
 black = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
