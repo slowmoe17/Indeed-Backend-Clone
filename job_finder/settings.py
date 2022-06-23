@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+import dj_database_url
+import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -65,15 +66,18 @@ WSGI_APPLICATION = 'job_finder.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+        
+    
 }
 
-
+if os.environ.get("PROD"):
+    DATABASES["default"].update(dj_database_url.config())
+    DATABASES["default"]["CONN_MAX_AGE"] = 500
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
